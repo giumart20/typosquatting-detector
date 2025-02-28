@@ -15,26 +15,26 @@ def generate_typo_domains(domain):
     typo_variations = set()
     base_name, tld = domain.rsplit('.', 1)
     
-    # 1. Errori di battitura comuni (scambio di lettere adiacenti)
+    # 1. Common typos (swapping adjacent letters)
     for i in range(len(base_name) - 1):
         typo = list(base_name)
         typo[i], typo[i + 1] = typo[i + 1], typo[i]
         typo_variations.add("".join(typo) + '.' + tld)
     
-    # 2. Aggiunta o omissione di lettere
+    # 2. Adding or omitting letters
     for i in range(len(base_name)):
-        typo_variations.add(base_name[:i] + base_name[i+1:] + '.' + tld)  # Omissione
+        typo_variations.add(base_name[:i] + base_name[i+1:] + '.' + tld)  # Omission
     
     for char in 'abcdefghijklmnopqrstuvwxyz':
         for i in range(len(base_name) + 1):
-            typo_variations.add(base_name[:i] + char + base_name[i:] + '.' + tld)  # Aggiunta
+            typo_variations.add(base_name[:i] + char + base_name[i:] + '.' + tld)  # Addition
     
-    # 3. Sostituzione con caratteri simili
+    # 3. Replacing with similar characters
     replacements = {'o': '0', 'i': '1', 'l': '1', 's': '5', 'e': '3', 'a': '@'}
     for key, val in replacements.items():
         typo_variations.add(base_name.replace(key, val) + '.' + tld)
     
-    # 4. Cambio del TLD
+    # 4. Changing the TLD
     common_tlds = ['com', 'net', 'org', 'info', 'biz']
     for new_tld in common_tlds:
         typo_variations.add(base_name + '.' + new_tld)
@@ -43,7 +43,7 @@ def generate_typo_domains(domain):
 
 def check_domain_exists(domain):
     resolver = dns.resolver.Resolver()
-    resolver.nameservers = ['8.8.8.8', '1.1.1.1']  # Usa Google e Cloudflare DNS
+    resolver.nameservers = ['8.8.8.8', '1.1.1.1']  # Use Google and Cloudflare DNS
     try:
         resolver.resolve(domain, 'A')
         return True
@@ -91,7 +91,7 @@ def check_redirect(domain):
     try:
         response = requests.get("http://" + domain, timeout=5, allow_redirects=True)
         if response.history:
-            return response.url  # URL finale dopo i redirect
+            return response.url  # Final URL after redirects
         return None
     except:
         return None
@@ -157,13 +157,13 @@ def analyze_typosquatting(main_domain, check_abuse=False, api_key=None):
     return detected_domains
 
 if __name__ == "__main__":
-    main_domain = input("Inserisci il dominio principale (es. google.com): ")
-    check_abuse = input("Vuoi controllare gli IP su AbuseIPDB? (s/n): ").strip().lower() == 's'
+    main_domain = input("Enter the main domain (e.g., google.com): ")
+    check_abuse = input("Do you want to check IPs on AbuseIPDB? (y/n): ").strip().lower() == 'y'
     api_key = None
     if check_abuse:
-        api_key = input("Inserisci la tua API Key di AbuseIPDB: ")
+        api_key = input("Enter your AbuseIPDB API Key: ")
     results = analyze_typosquatting(main_domain, check_abuse, api_key)
     
-    print("\nDomini sospetti trovati:")
+    print("\nSuspicious domains found:")
     for result in results:
         print(f"{result['domain']} - WHOIS: {result['whois']} - IP: {result['ip']} - MX: {result['mx_record']} - SSL: {result['ssl_issuer']} - Redirect: {result['redirect']} - Abuse Score: {result['abuse_score']}")
