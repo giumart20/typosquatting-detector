@@ -18,7 +18,7 @@ A Python script designed to identify domains potentially used for typosquatting.
 
 1. **Clone the repository**:
    ```bash
-   git clone https://github.com/giuseppemartone98/typosquatting-detector.git
+   git clone https://github.com/giumart20/typosquatting-detector.git
    cd typosquatting-detector
 
 2. **Create a virtual environment (optional but recommended)**:
