@@ -11,6 +11,7 @@ A Python script designed to identify domains potentially used for typosquatting.
   - IP addresses
   - MX records
   - SSL certificate details
+- **Redirect checks** (Detects if a domain redirects to another site, potentially malicious)
 - **AbuseIPDB Integration**: Optionally checks IP addresses against AbuseIPDB for reported malicious activity.
 
 ## Installation
