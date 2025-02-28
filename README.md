@@ -38,10 +38,22 @@ A Python script designed to identify domains potentially used for typosquatting.
    ```bash
    python typosquatting_detector.py
 
-Follow the prompts:
+2. **Follow the prompts:**
 
-Enter the primary domain (e.g., example.com).
-Choose whether to check IPs against AbuseIPDB. If yes, provide your AbuseIPDB API key.
+- Enter the primary domain (e.g., example.com).
+- Choose whether to check IPs against AbuseIPDB. If yes, provide your AbuseIPDB API key.
+- The script will display suspicious domains in the console.
+- Results will be saved to typosquatting_results.csv in the current directory.
 
-The script will display suspicious domains in the console.
-Results will be saved to typosquatting_results.csv in the current directory.
+## Usage
+
+- AbuseIPDB API Key: To check IPs against AbuseIPDB, obtain a free API key by registering at AbuseIPDB. The script will prompt you to enter this key if you choose to perform the check.
+
+## Dependencies
+- Python 3.x
+- Required Python packages are listed in requirements.txt.
+
+## Contributing
+Contributions are welcome! Please fork the repository and submit a pull request with your changes. Ensure that your code adheres to the existing style and includes appropriate tests.
+
+
